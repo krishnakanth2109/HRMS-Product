@@ -55,6 +55,7 @@ const allowedOrigins = [
   "https://hrms-ask-1jx6.onrender.com",
   // "https://hrms.vagarioussolutions.com",
   "http://hrms.vagarioussolutions.com",
+  "https://hrms-ask.netlify.app"
 ];
 
 // -------------------- SOCKET.IO FOR REAL-TIME CHAT --------------------

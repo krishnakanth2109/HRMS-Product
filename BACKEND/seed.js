@@ -17,18 +17,18 @@ const seedAdminAndManager = async () => {
     // ---------------------------
     // 1️⃣ CREATE ADMIN ACCOUNT
     // ---------------------------
-    const adminEmail = "ops@arahinfotech.net";
+    const adminEmail = "ask@gmail.com";
 
     let admin = await Admin.findOne({ email: adminEmail });
     if (!admin) {
       await Admin.create({
-        name: "Sanjay Kumar",
+        name: "test",
         email: adminEmail,
         password: "Admin@2026", // hashed automatically
-        phone: "9491990526",
+        phone: "6303740343",
         role: "admin",
         designation: "Managing Director",
-        companyName: "Arah Infotech",
+        companyName: "ASK technologies",
       });
 
       console.log("✅ Admin account created.");
