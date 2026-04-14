@@ -1,0 +1,223 @@
+// --- START OF FILE App.jsx ---
+
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+// Layouts
+import LayoutAdmin from "./components/admin/LayoutAdmin";
+import LayoutEmployee from "./components/employee/LayoutEmployee";
+
+// Pages
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
+import EmployeeManagement from "./pages/EmployeeManagement";
+import AddEmployee from "./pages/AddEmployee";
+import ReactivateEmployee from "./pages/ReactivateEmployee";
+import EditEmployee from "./pages/EditEmployee";
+import AdminViewAttendance from "./pages/AdminviewAttendance";
+import LeaveManagement from "./pages/LeaveManagement";
+import AdminLeaveSummary from "./pages/AdminLeaveSummary";
+import AdminProfile from "./pages/AdminProfile";
+import EmployeeProfile from "./pages/EmployeeProfile";
+import EmployeeLeaveSummary from "./pages/EmployeeLeaveSummary";
+import AdminNotifications from "./pages/AdminNotifications";
+import EmployeesOnLeaveToday from "./pages/EmployeesOnLeaveToday";
+import ForgotPassword from "./pages/ForgotPassword";
+import EmployeeAttendanceProfile from "./pages/EmployeeAttendanceProfile";
+import AdminNotices from "./pages/AdminNotices.jsx";
+import AdminHolidayCalendarPage from "./pages/AdminHolidayCalendarPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import SettingsPage from "./pages/SettingsPage";
+import Payroll from "./pages/Payroll";
+
+// Attendance Features
+import OvertimeManagement from "./pages/OvertimeManagement";
+import PermissionHoursManagement from "./pages/PermissionHoursManagement";
+import { OvertimeProvider } from "./context/OvertimeProvider";
+import { PermissionHoursProvider } from "./context/PermissionHoursProvider";
+
+// Providers
+import { NoticeProvider } from "./context/NoticeProvider";
+import HolidayCalendarProvider from "./context/HolidayCalendarProvider";
+import CurrentEmployeeNotificationProvider from "./EmployeeContext/CurrentEmployeeNotificationProvider";
+import { EmployeeProvider } from "./context/EmployeeProvider";
+
+// Employee pages
+import EmployeeDashboard from "./EmployeePages/EmployeeDashboard";
+import CurrentEmployeeAttendanceProfile from "./EmployeePages/CurrentEmployeeAttendanceProfile";
+import LeaveWithModal from "./EmployeePages/EmployeeLeavemanagement";
+import CurrentEmployeeHolidayCalendar from "./EmployeePages/CurrentEmployeeHolidayCalendar";
+import CurrentEmployeeProfile from "./EmployeePages/CurrentEmployeeProfile";
+import CurrentEmployeeNoticeBoard from "./EmployeePages/CurrentEmployeeNoticeBoard";
+import OvertimeForm from "./EmployeePages/EmployeeOvertimeForm";
+import NewEmployeeAttendance from "./EmployeePages/EmployeeAttendance";
+import EmployeeDailyAttendance from "./EmployeePages/EmployeeDailyAttendance";
+import EmployeeNotifications from "./pages/EmployeeNotifications";
+import EmployeeTeamsPage from "./EmployeePages/EmployeeTeamsPage";
+
+
+// Admin pages
+import OvertimeAdmin from "./pages/OvertimeAdmin";
+import AdminLeavePanel from "./pages/AdminLeavemanagmentPanel";
+import AdminGroupPage from "./pages/AdminGroupPage";
+
+
+// Route protection
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import AdminLocationSettings from "./components/AdminLocationSettings";
+import EmployeeWorkModeRequest from "./EmployeePages/EmployeeWorkModeRequest";
+import RequestPunchOut from "./EmployeePages/RequestPunchOut";
+import AdminLateRequests from "./pages/AdminLateRequests";
+import MeetingGenerator from "./pages/meeting";
+import TodayOverview from "./pages/TodayOverview";
+import EmployeeViewRules from "./EmployeePages/EmployeeViewRules";
+import AdminRulesPost from "./pages/AdminRulespost";
+import EmployeePayslip from "./EmployeePages/EmployeePayslip";
+import ConnectWithEmployee from "./EmployeePages/ConnectwithEmployee";
+import AddExpense from "./EmployeePages/AddExpense";
+import AdminExpenseDashboard from "./pages/AdminExpense";
+import AdminAttendanceRequests from "./pages/AdminAttendanceRequests";
+import PunchOutRequests from "./pages/PunchOutRequests";
+import WorkModeRequests from "./pages/WorkModeRequests";
+import EmployeeOnboarding from "./pages/EmployeeOnboarding";
+import OnboardingEmailForm from "./pages/InviteEmployee";
+import PayrollManagement from "./pages/PayrollManagement";
+import AdminLiveTracking from "./pages/AdminLiveTracking";
+
+function App() {
+  return (
+    <Routes>
+      {/* Public route */}
+      <Route path="/" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/employee-onboarding" element={<EmployeeOnboarding />} />
+
+      {/* ------------------ ADMIN ROUTES ------------------ */}
+      <Route
+        element={
+          <ProtectedRoute role="admin">
+            <EmployeeProvider> {/* ⭐ FIX — Employee data loads ONLY for admins */}
+              <LayoutAdmin />
+            </EmployeeProvider>
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/employees" element={<EmployeeManagement />} />
+        <Route path="/employees/add" element={<AddEmployee />} />
+        <Route path="/employees/reactivate/:id" element={<ReactivateEmployee />} />
+        <Route path="/employees/edit/:id" element={<EditEmployee />} />
+        <Route path="/employee/:id/profile" element={<EmployeeProfile />} />
+        <Route path="/attendance" element={<AdminViewAttendance />} />
+
+
+        <Route
+          path="/attendance/overtime"
+          element={
+            <OvertimeProvider>
+              <OvertimeManagement />
+            </OvertimeProvider>
+          }
+        />
+
+        <Route
+          path="/attendance/permissions"
+          element={
+            <PermissionHoursProvider>
+              <PermissionHoursManagement />
+            </PermissionHoursProvider>
+          }
+        />
+
+        <Route path="/attendance/profile/:employeeId" element={<EmployeeAttendanceProfile />} />
+        <Route path="/leave-management" element={<LeaveManagement />} />
+        <Route path="/admin/leave-summary" element={<AdminLeaveSummary />} />
+        <Route path="/admin/settings" element={<SettingsPage />} />
+        <Route path="/admin/shifttype" element={<AdminLocationSettings />} />
+        <Route path="/admin/payroll" element={<Payroll />} />
+        <Route path="/admin/notifications" element={<AdminNotifications />} />
+        <Route path="/admin/on-leave-today" element={<EmployeesOnLeaveToday />} />
+        {/* 🔥 GROUP MANAGEMENT */}
+        <Route path="/admin/groups" element={<AdminGroupPage />} />
+
+        <Route
+          path="/admin/notices"
+          element={
+            <NoticeProvider>
+              <AdminNotices />
+            </NoticeProvider>
+          }
+        />
+
+        <Route path="/admin/change-password" element={<ChangePasswordPage />} />
+        <Route path="/admin/holiday-calendar" element={<AdminHolidayCalendarPage />} />
+        <Route path="/admin/admin-overtime" element={<OvertimeAdmin />} />
+        <Route path="/admin/admin-Leavemanage" element={<AdminLeavePanel />} />
+        <Route path="/admin/late-requests" element={<AdminLateRequests />} />
+        <Route path="/admin/meeting" element={<MeetingGenerator />} />
+        <Route path="/admin/today-overview" element={<TodayOverview />} />
+          <Route path="/admin/rules" element={<AdminRulesPost />} />
+         <Route path="/admin/expense" element={<AdminExpenseDashboard />} />
+         <Route path="/admin/attendance-requests" element={<AdminAttendanceRequests />} />
+         <Route path="/admin/punchout-requests" element={<PunchOutRequests />} />
+         <Route path="/admin/workmode-requests" element={<WorkModeRequests />}/>
+         <Route path="/admin/onboarding-email" element={<OnboardingEmailForm />} />
+          <Route path="/admin/payrollcandidates" element={<PayrollManagement />} />
+          <Route path="/admin/idletime-tracking" element={<AdminLiveTracking />} />
+       
+      </Route>
+
+      {/* ------------------ EMPLOYEE ROUTES ------------------ */}
+      <Route
+        element={
+          <ProtectedRoute role="employee">
+            <CurrentEmployeeNotificationProvider>
+              <NoticeProvider>
+                <LayoutEmployee />
+              </NoticeProvider>
+            </CurrentEmployeeNotificationProvider>
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
+        <Route path="/employee/profile" element={<CurrentEmployeeProfile />} />
+        <Route path="/employee/attendance" element={<CurrentEmployeeAttendanceProfile />} />
+        <Route path="/employee/notifications" element={<EmployeeNotifications />} />
+        <Route path="/employee/leave-management" element={<LeaveWithModal />} />
+        <Route path="/employee/empovertime" element={<OvertimeForm />} />
+        <Route path="/employee/reuestworkmode" element={<EmployeeWorkModeRequest />} />
+        <Route path="/employee/requestpunchout" element={<RequestPunchOut />} />
+        <Route path="/employee/my-attendence" element={<EmployeeDailyAttendance />} />
+        <Route path="/employee/new-attendence" element={<NewEmployeeAttendance />} />
+        <Route path="/employee/rules" element={<EmployeeViewRules />} />
+        <Route path="/employee/payslip" element={<EmployeePayslip />} />
+        <Route path="/employee/chatting" element={<ConnectWithEmployee />} />
+        <Route path="/employee/expense" element={<AddExpense />} />
+        <Route
+          path="/employee/teams"
+          element={<EmployeeTeamsPage />}
+        />
+
+
+        <Route
+          path="/employee/holiday-calendar"
+          element={
+            <HolidayCalendarProvider>
+              <CurrentEmployeeHolidayCalendar />
+            </HolidayCalendarProvider>
+          }
+        />
+
+        <Route path="/employee/notices" element={<CurrentEmployeeNoticeBoard />} />
+        <Route path="/employee/leave-summary" element={<EmployeeLeaveSummary />} />
+        <Route path="/employee/change-password" element={<ChangePasswordPage />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;
+
+// --- END OF FILE App.jsx ---
